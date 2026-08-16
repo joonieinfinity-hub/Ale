@@ -1,0 +1,8 @@
+{
+  "name": "ALE HOUSE WINE SHOP",
+  "description": "Heritage liquor store in Nagaon, Assam since 1998. Curated catalogue of whisky, wine, rum, vodka, gin, beer & fine spirits.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

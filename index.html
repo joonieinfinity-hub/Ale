@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALE HOUSE WINE SHOP | Nagaon, Assam</title>
+    <meta name="description" content="ALE HOUSE WINE SHOP — A trusted destination for fine spirits in Nagaon, Assam. Serving authentic whisky, wine, beer, spirits & wholesale selections." />
+    <meta name="keywords" content="Ale House Wine Shop, Nagaon, Assam, Diphalu, Laokhowa Road, wine shop, whisky, beer, spirits, wine, fine spirits Nagaon, wholesale alcohol Assam" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              forest: {
+                950: '#050B08',
+                900: '#08100C',
+                850: '#0C1813',
+                800: '#102019',
+                750: '#152820',
+                700: '#1B3228',
+                600: '#234034',
+              },
+              charcoal: {
+                DEFAULT: '#08100C',
+                950: '#050B08',
+                900: '#08100C',
+                850: '#0C1813',
+                800: '#102019',
+                700: '#1B3228',
+                600: '#234034'
+              },
+              ivory: {
+                DEFAULT: '#F5EFEB',
+                light: '#FAF6F0',
+                muted: '#EDE6DD',
+                subtle: '#D5CCC1',
+                dark: '#BCB3A7'
+              },
+              brass: {
+                DEFAULT: '#C5A059',
+                light: '#D4AF37',
+                dark: '#B8934A',
+                deep: '#9A7836',
+                muted: '#856627'
+              },
+              burgundy: {
+                DEFAULT: '#4A1D24',
+                light: '#5E252E',
+                dark: '#3A141A',
+                deep: '#2E1217',
+                hover: '#5E252E'
+              }
+            },
+            fontFamily: {
+              serif: ['Playfair Display', 'Cormorant Garamond', 'Georgia', 'serif'],
+              sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+              display: ['Playfair Display', 'Cormorant Garamond', 'serif']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+      
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+        background-color: #08100C;
+        color: #F5EFEB;
+      }
+
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #08100C;
+        color: #F5EFEB;
+      }
+      
+      h1, h2, h3, h4, .font-serif {
+        font-family: 'Playfair Display', Georgia, serif;
+      }
+
+      /* Custom fine scrollbars */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050B08;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #1B3228;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #C5A059;
+      }
+
+      /* Hide scrollbar utility */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.29.0",
+    "react/": "https://esm.sh/react@^19.2.0/",
+    "react": "https://esm.sh/react@^19.2.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-[#08100C] text-[#F5EFEB] antialiased selection:bg-[#C5A059] selection:text-[#08100C]">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+/* Custom CSS for ALE HOUSE WINE SHOP luxury theme */
+
+/* Custom styling for luxury typography & borders */
+.serif-heading {
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+.gold-accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(181, 154, 104, 0.6) 50%, transparent 100%);
+}
+
+.champagne-glow {
+  box-shadow: 0 0 25px rgba(181, 154, 104, 0.12);
+}
+
+/* Bottom sheet drawer animation */
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.25s ease-out forwards;
+}
+
+@keyframes progress {
+  from { width: 0%; }
+  to { width: 100%; }
+}
