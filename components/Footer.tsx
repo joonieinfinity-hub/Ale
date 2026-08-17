@@ -81,6 +81,11 @@ const Footer: React.FC<FooterProps> = ({ onSelectTab }) => {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNavClick('home', 'loyalty-program')} className="hover:text-[#C5A059] transition-colors cursor-pointer text-left">
+                  Patron Rewards
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNavClick('home', 'gallery')} className="hover:text-[#C5A059] transition-colors cursor-pointer text-left">
                   Gallery
                 </button>

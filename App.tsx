@@ -13,6 +13,7 @@ import WhyAleHouse from './components/WhyAleHouse';
 import StoreGallery from './components/StoreGallery';
 import VisitUsSection from './components/VisitUsSection';
 import WholesaleCTA from './components/WholesaleCTA';
+import LoyaltyProgram from './components/LoyaltyProgram';
 import ProductGrid from './components/ProductGrid';
 import ProductDetailModal from './components/ProductDetailModal';
 import BrandsDirectory from './components/BrandsDirectory';
@@ -20,6 +21,7 @@ import AboutPage from './components/AboutPage';
 import VisitUsPage from './components/VisitUsPage';
 import Footer from './components/Footer';
 import Assistant from './components/Assistant';
+import AgeVerificationModal from './components/AgeVerificationModal';
 import { ViewTab, ViewState, Product, SpiritCategory } from './types';
 
 function App() {
@@ -92,13 +94,16 @@ function App() {
               {/* 5. Why Ale House - 4 Core Pillars */}
               <WhyAleHouse onSelectTab={handleSelectTab} />
 
-              {/* 6. The Store / Photographic Archive */}
+              {/* 6. Loyalty Program & Patron Privileges */}
+              <LoyaltyProgram onSelectTab={handleSelectTab} />
+
+              {/* 7. The Store / Photographic Archive */}
               <StoreGallery onSelectTab={handleSelectTab} />
 
-              {/* 7. Come Find Us / Store Location & Hours */}
+              {/* 8. Come Find Us / Store Location & Hours */}
               <VisitUsSection />
 
-              {/* 8. Wholesale Enquiries CTA */}
+              {/* 9. Wholesale Enquiries CTA */}
               <WholesaleCTA />
             </>
           )}
@@ -151,6 +156,9 @@ function App() {
 
       {/* Counter Assistant */}
       <Assistant />
+
+      {/* Mandatory Initial Age Verification Modal */}
+      <AgeVerificationModal />
     </div>
   );
 }
