@@ -1,6 +1,7 @@
 import React from 'react';
 import { STORE_DETAILS } from '../data/inventory';
-import { MapPin, Clock, Phone, ShieldCheck, ArrowUpRight, Navigation } from 'lucide-react';
+import { MapPin, Clock, Phone, ShieldCheck, ArrowUpRight, Navigation, Compass } from 'lucide-react';
+import InteractiveMiniMap from './InteractiveMiniMap';
 
 const VisitUsSection: React.FC = () => {
   return (
@@ -121,105 +122,32 @@ const VisitUsSection: React.FC = () => {
 
           </div>
 
-          {/* Right Column: Visual Map / Route Guidance Presentation */}
-          <div className="lg:col-span-7 bg-[#08100C] border border-[#1B3228] p-6 sm:p-8 flex flex-col justify-between shadow-xl relative overflow-hidden">
-            
-            <div>
-              <div className="flex items-center justify-between pb-4 border-b border-[#1B3228] mb-6">
-                <div>
-                  <span className="text-[10px] font-sans font-bold tracking-widest text-[#C5A059] uppercase block">
-                    HOW TO REACH US
-                  </span>
-                  <h4 className="font-serif text-lg sm:text-xl font-bold text-[#F5EFEB]">
-                    Direct Road Access in Nagaon
-                  </h4>
-                </div>
-                <span className="text-xs text-[#BCB3A7] font-sans">
-                  Assam PIN 782003
+          {/* Right Column: Interactive Mini-Map & Route Guidance */}
+          <div className="lg:col-span-7 flex flex-col justify-between">
+            <InteractiveMiniMap className="w-full" />
+
+            {/* Landmark Guidance Notes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 text-xs font-light text-[#D5CCC1]">
+              <div className="p-3.5 bg-[#08100C] border border-[#1B3228]">
+                <span className="font-semibold text-[#C5A059] block mb-1 font-sans text-[11px] uppercase tracking-wider">
+                  PARKING & ACCESSIBILITY
                 </span>
+                Ample street-side parking bays along the shop front for quick drive-in and customer collection.
               </div>
-
-              {/* Map Preview Illustration Container */}
-              <div className="relative aspect-[16/9] sm:aspect-[21/10] bg-[#050B08] border border-[#1B3228] overflow-hidden group mb-6">
-                
-                {/* Visual stylised cartography graphic */}
-                <div className="absolute inset-0 bg-[#07110C] flex flex-col justify-center items-center p-6 text-center">
-                  
-                  {/* Grid Lines Pattern */}
-                  <div className="absolute inset-0 opacity-15" 
-                    style={{
-                      backgroundImage: 'radial-gradient(#C5A059 1px, transparent 1px)',
-                      backgroundSize: '24px 24px'
-                    }}
-                  />
-                  
-                  {/* Simulated Road Lines */}
-                  <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-12 bg-[#0C1813] border-y border-[#1B3228] flex items-center justify-center">
-                    <span className="text-[11px] font-sans tracking-[0.25em] text-[#BCB3A7] uppercase font-semibold">
-                      LAOKHOWA ROAD
-                    </span>
-                  </div>
-
-                  <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-12 bg-[#0C1813] border-x border-[#1B3228] flex items-center justify-center">
-                    <span className="text-[9px] font-sans tracking-[0.2em] text-[#BCB3A7] uppercase rotate-90 whitespace-nowrap">
-                      DIPHALU CONNECTOR
-                    </span>
-                  </div>
-
-                  {/* Pin Callout */}
-                  <div className="relative z-10 p-3 bg-[#08100C] border-2 border-[#C5A059] shadow-2xl flex items-center gap-3">
-                    <div className="w-7 h-7 bg-[#C5A059] flex items-center justify-center text-[#08100C]">
-                      <MapPin className="w-4 h-4" />
-                    </div>
-                    <div className="text-left">
-                      <span className="font-serif font-bold text-xs text-[#F5EFEB] block">
-                        ALE HOUSE WINE SHOP
-                      </span>
-                      <span className="text-[10px] text-[#C5A059] font-sans uppercase tracking-wider block">
-                        Diphalu · Laokhowa Rd
-                      </span>
-                    </div>
-                  </div>
-
-                </div>
-
-                <a
-                  href={STORE_DETAILS.googleMapsDirectionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute inset-0 bg-transparent flex items-center justify-center opacity-0 group-hover:opacity-100 bg-[#08100C]/70 backdrop-blur-xs transition-opacity duration-300 z-20 text-xs font-bold uppercase tracking-widest text-[#C5A059]"
-                >
-                  <span className="px-5 py-2.5 bg-[#08100C] border border-[#C5A059] shadow-xl flex items-center gap-2">
-                    <span>OPEN IN GOOGLE MAPS</span>
-                    <ArrowUpRight className="w-4 h-4 text-[#C5A059]" />
-                  </span>
-                </a>
-              </div>
-
-              {/* Landmark Guidance Notes */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-light text-[#D5CCC1]">
-                <div className="p-3 bg-[#0C1813] border border-[#1B3228]">
-                  <span className="font-semibold text-[#C5A059] block mb-1 font-sans text-[11px] uppercase tracking-wider">
-                    PARKING & ACCESSIBILITY
-                  </span>
-                  Ample street-side parking along the road front for rapid customer collection.
-                </div>
-                <div className="p-3 bg-[#0C1813] border border-[#1B3228]">
-                  <span className="font-semibold text-[#C5A059] block mb-1 font-sans text-[11px] uppercase tracking-wider">
-                    PAYMENTS ACCEPTED
-                  </span>
-                  Accepting UPI (Google Pay, PhonePe, Paytm), cash, and major card payments at the counter.
-                </div>
+              <div className="p-3.5 bg-[#08100C] border border-[#1B3228]">
+                <span className="font-semibold text-[#C5A059] block mb-1 font-sans text-[11px] uppercase tracking-wider">
+                  PAYMENTS ACCEPTED
+                </span>
+                Accepting UPI (Google Pay, PhonePe, Paytm), cash, and major credit/debit cards at the counter.
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#1B3228] flex items-center justify-between text-[11px] text-[#BCB3A7]">
-              <span>For immediate counter directions, call during operating hours:</span>
+            <div className="mt-4 pt-3 border-t border-[#1B3228] flex flex-wrap items-center justify-between text-[11px] text-[#BCB3A7] gap-2">
+              <span>For counter directions and hold inquiries:</span>
               <a href={`tel:${STORE_DETAILS.wholesalePhoneDial}`} className="text-[#C5A059] font-semibold hover:underline">
                 {STORE_DETAILS.phonePlaceholder}
               </a>
             </div>
-
           </div>
 
         </div>

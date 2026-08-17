@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { STORE_DETAILS } from '../data/inventory';
 import { MapPin, Phone, MessageSquare, Clock, Copy, Check, Navigation, User, Store, ExternalLink, Info } from 'lucide-react';
+import InteractiveMiniMap from './InteractiveMiniMap';
 
 const VisitUsPage: React.FC = () => {
   const [addressCopied, setAddressCopied] = useState(false);
@@ -168,51 +169,9 @@ const VisitUsPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Map Preview Card Placeholder */}
-        <div className="bg-[#1D1818] border border-[#352B2C] rounded-none p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#2D2526]">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#B59A68]">
-                MAP LOCATION PREVIEW
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-[#EDE5D8]">
-                Diphalu, Laokhowa Road, Nagaon
-              </h3>
-            </div>
-
-            <a
-              href={STORE_DETAILS.googleMapsDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 bg-[#110F0F] hover:bg-[#211A1A] border border-[#e1b382]/50 text-[#e1b382] hover:text-[#EDE5D8] text-xs font-bold uppercase tracking-wider rounded-none inline-flex items-center gap-2 cursor-pointer"
-            >
-              <span>Open in Google Maps</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Map Frame Container */}
-          <div className="relative h-80 w-full bg-[#110F0F] border border-[#2D2526] rounded-none overflow-hidden flex flex-col items-center justify-center text-center p-6 group">
-            <div className="w-14 h-14 rounded-none bg-[#1D1818] border border-[#e1b382] flex items-center justify-center text-[#e1b382] mb-3 shadow-xl transform group-hover:scale-105 transition-transform">
-              <MapPin className="w-7 h-7" />
-            </div>
-
-            <h4 className="font-serif text-xl font-bold text-[#EDE5D8] mb-1">
-              ALE HOUSE WINE SHOP
-            </h4>
-            <p className="text-xs text-[#DCD2C3] max-w-sm mb-4 font-light">
-              Diphalu, Laokhowa Road, Nagaon, Assam 782003
-            </p>
-
-            <a
-              href={STORE_DETAILS.googleMapsDirectionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-7 py-3 bg-[#e1b382] hover:bg-[#c89666] text-[#171313] border border-[#e1b382]/60 font-bold text-xs uppercase tracking-[0.2em] rounded-none shadow-lg transition-all"
-            >
-              LAUNCH INTERACTIVE NAVIGATION →
-            </a>
-          </div>
+        {/* Interactive Mini-Map Presentation */}
+        <div className="mb-10">
+          <InteractiveMiniMap className="w-full" />
         </div>
 
       </div>

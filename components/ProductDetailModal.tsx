@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Product } from '../types';
 import { STORE_DETAILS } from '../data/inventory';
-import { ArrowLeft, MapPin, Share2, Info, MessageSquare, Check, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, MapPin, Share2, Info, MessageSquare, Check, ShieldCheck, Copy } from 'lucide-react';
 import Breadcrumbs, { BreadcrumbItem } from './Breadcrumbs';
 
 interface ProductDetailProps {
@@ -22,10 +22,47 @@ const ProductDetailModal: React.FC<ProductDetailProps> = ({
   const [copied, setCopied] = useState(false);
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
 
-  const handleShare = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleShare = async () => {
+    const shareUrl = window.location.href;
+    const shareData = {
+      title: `${product.brand} - ${product.name} | ALE HOUSE WINE SHOP`,
+      text: `Check out ${product.brand} ${product.name} (${product.sizes[0]?.size ? product.sizes[0].size + ' - ' + product.sizes[0].price : ''}) at ALE HOUSE WINE SHOP, Diphalu, Nagaon.`,
+      url: shareUrl,
+    };
+
+    // Attempt Native Device Sharing Menu if supported
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (err: any) {
+        // If user explicitly cancelled, don't force copy notification
+        if (err?.name === 'AbortError') {
+          return;
+        }
+        // Fallthrough to clipboard fallback on other errors
+      }
+    }
+
+    // Fallback: Clipboard copy
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = shareUrl;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch (e) {
+      console.warn('Failed to copy link to clipboard:', e);
+    }
   };
 
   const selectedSize = product.sizes[selectedSizeIndex] || product.sizes[0];
@@ -50,7 +87,7 @@ const ProductDetailModal: React.FC<ProductDetailProps> = ({
         </div>
 
         {/* Navigation / Back Header */}
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#1B3228]">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-[#1B3228] gap-4">
           <button
             onClick={onBack}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-none bg-[#0C1813] border border-[#1B3228] hover:border-[#C5A059] text-xs font-bold uppercase tracking-widest text-[#C5A059] hover:text-[#F5EFEB] transition-all cursor-pointer"
@@ -59,15 +96,46 @@ const ProductDetailModal: React.FC<ProductDetailProps> = ({
             <span>BACK TO COLLECTION</span>
           </button>
 
+          {/* Top Share Button */}
           <button
+            id="product-share-header-btn"
             onClick={handleShare}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs text-[#BCB3A7] hover:text-[#F5EFEB] transition-colors cursor-pointer"
-            title="Copy Page Link"
+            aria-label="Share product details"
+            className={`inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold uppercase tracking-wider rounded-none border transition-all cursor-pointer ${
+              copied 
+                ? 'bg-emerald-950/60 border-emerald-500/80 text-emerald-400 shadow-sm' 
+                : 'bg-[#0C1813] border-[#1B3228] hover:border-[#C5A059] text-[#BCB3A7] hover:text-[#F5EFEB]'
+            }`}
+            title={copied ? 'Link Copied to Clipboard!' : 'Share or Copy Link'}
           >
-            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4 text-[#C5A059]" />}
-            <span>{copied ? 'Link Copied!' : 'Share'}</span>
+            {copied ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span>Link Copied!</span>
+              </>
+            ) : (
+              <>
+                <Share2 className="w-4 h-4 text-[#C5A059]" />
+                <span>Share Bottle</span>
+              </>
+            )}
           </button>
         </div>
+
+        {/* Floating Copied Toast for Clear Visual Feedback */}
+        {copied && (
+          <div 
+            role="status"
+            aria-live="polite"
+            className="mb-6 p-3 bg-[#0C1813] border border-emerald-500/60 text-emerald-300 text-xs flex items-center justify-between shadow-lg"
+          >
+            <div className="flex items-center gap-2">
+              <Check className="w-4 h-4 text-emerald-400" />
+              <span>Product link copied to your clipboard! Ready to paste & share.</span>
+            </div>
+            <span className="text-[10px] text-emerald-400/70 uppercase tracking-widest font-mono">Copied</span>
+          </div>
+        )}
 
         {/* Product Card Container */}
         <div className="bg-[#0C1813] border border-[#1B3228] rounded-none overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-12 gap-0">
@@ -192,24 +260,49 @@ const ProductDetailModal: React.FC<ProductDetailProps> = ({
 
             {/* CTAs */}
             <div className="pt-6 border-t border-[#1B3228] space-y-3">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {/* 1. Get Directions */}
                 <button
                   onClick={onNavigateToVisit}
-                  className="w-full py-3.5 bg-[#C5A059] hover:bg-[#D4AF37] text-[#08100C] border border-[#C5A059] font-bold text-xs uppercase tracking-widest rounded-none transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
+                  className="w-full py-3.5 px-3 bg-[#C5A059] hover:bg-[#D4AF37] text-[#08100C] border border-[#C5A059] font-bold text-xs uppercase tracking-wider rounded-none transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                 >
-                  <MapPin className="w-4 h-4 text-[#08100C]" />
-                  <span>Get Directions to Store</span>
+                  <MapPin className="w-4 h-4 text-[#08100C] shrink-0" />
+                  <span>Get Directions</span>
                 </button>
 
+                {/* 2. Inquire at Counter */}
                 <a
                   href={STORE_DETAILS.googleMapsDirectionsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 bg-[#08100C] hover:bg-[#12231C] text-[#D5CCC1] hover:text-[#F5EFEB] border border-[#1B3228] hover:border-[#C5A059] font-semibold text-xs uppercase tracking-widest rounded-none transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
+                  className="w-full py-3.5 px-3 bg-[#08100C] hover:bg-[#12231C] text-[#D5CCC1] hover:text-[#F5EFEB] border border-[#1B3228] hover:border-[#C5A059] font-semibold text-xs uppercase tracking-wider rounded-none transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
                 >
-                  <MessageSquare className="w-4 h-4 text-[#C5A059]" />
+                  <MessageSquare className="w-4 h-4 text-[#C5A059] shrink-0" />
                   <span>Inquire at Counter</span>
                 </a>
+
+                {/* 3. Primary Share Button */}
+                <button
+                  id="product-share-cta-btn"
+                  onClick={handleShare}
+                  className={`w-full py-3.5 px-3 border font-semibold text-xs uppercase tracking-wider rounded-none transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                    copied
+                      ? 'bg-emerald-950/70 border-emerald-500 text-emerald-400'
+                      : 'bg-[#08100C] hover:bg-[#1B3228] border-[#1B3228] hover:border-[#C5A059] text-[#D5CCC1] hover:text-[#F5EFEB]'
+                  }`}
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Share2 className="w-4 h-4 text-[#C5A059] shrink-0" />
+                      <span>Share Bottle</span>
+                    </>
+                  )}
+                </button>
               </div>
 
               <div className="text-center">
